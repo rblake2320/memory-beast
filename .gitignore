@@ -1,8 +1,28 @@
-node_modules/
-build/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
 dist/
-coverage/
+build/
+*.egg-info/
+
+# Environment
+.env
+data/.license_cache
+logs/
+
+# Node
+node_modules/
+frontend/dist/
+backend/static/spa/
+
+# Database
+*.pgdump
+*.sql
+
+# Misc
 .DS_Store
-*.log
-.env*
-!.env.example
+*.swp
+*.swo
