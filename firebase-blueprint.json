@@ -1,0 +1,95 @@
+{
+  "entities": {
+    "Memory": {
+      "title": "Memory Fact",
+      "description": "A single atomic fact stored in the bitemporal memory system.",
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "The actual text content of the memory."
+        },
+        "embedding": {
+          "type": "array",
+          "items": { "type": "number" },
+          "description": "Vector representation for semantic search."
+        },
+        "valid_from": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when this fact became true in the real world."
+        },
+        "valid_until": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when this fact ceased to be true."
+        },
+        "transaction_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when the system recorded this fact."
+        },
+        "source_id": {
+          "type": "string",
+          "description": "Reference to the source of this memory."
+        },
+        "confidence": {
+          "type": "number",
+          "description": "Confidence score (0.0 to 1.0)."
+        },
+        "derivation_tier": {
+          "type": "integer",
+          "description": "0: User Explicit, 1: User Behavior, 2: LLM Inference, 3: LLM Synthesis, 4: External."
+        },
+        "prev_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of the previous memory in the chain."
+        },
+        "hash": {
+          "type": "string",
+          "description": "SHA-256 hash of this memory's content + metadata + prev_hash."
+        },
+        "superseded_by": {
+          "type": "string",
+          "description": "ID of the memory that replaces this one."
+        },
+        "uid": {
+          "type": "string",
+          "description": "The owner of this memory."
+        }
+      },
+      "required": ["content", "valid_from", "transaction_time", "confidence", "derivation_tier", "uid", "hash"]
+    },
+    "Source": {
+      "title": "Memory Source",
+      "description": "The origin of a set of memories (e.g., a document, a chat session).",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["document", "chat", "web", "user_input"]
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "is_invalidated": {
+          "type": "boolean"
+        },
+        "uid": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "uid"]
+    }
+  },
+  "firestore": {
+    "memories": {
+      "schema": "Memory",
+      "description": "Collection of all memory facts."
+    },
+    "sources": {
+      "schema": "Source",
+      "description": "Collection of memory sources."
+    }
+  }
+}

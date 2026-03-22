@@ -1,0 +1,9 @@
+{
+  "name": "Nexus Memory System",
+  "description": "A bitemporal, tamper-evident neural-symbolic memory system with cryptographic audit trails and cascade invalidation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
